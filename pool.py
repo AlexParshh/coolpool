@@ -1,7 +1,5 @@
 import pygame
-from classic import mainClassic
-from circle import mainCircle
-from triangle import mainTriangle
+
 
 pygame.init()
 
@@ -10,6 +8,8 @@ pygame.display.set_caption("cool pool")
 
 
 poolImg = pygame.image.load("coolpool.png")
+table = pygame.image.load("table.png")
+whiteball = pygame.image.load("whiteball.png")
 
 green = (0,128,0)
 lime = (0,255,0)
@@ -17,7 +17,8 @@ blue = (0,128,128)
 cyan = (0,255,255)
 red = (255,0,0)
 lightRed = (220,20,60)
-
+white = (255,255,255)
+PT = (175,238,238)
 def text_objects(text,font):
     textSurface = font.render(text,True,(0,0,0))
     return textSurface, textSurface.get_rect()
@@ -42,6 +43,46 @@ def button(msg,x,y,w,h,activeColor,inactiveColor,action=None):
     textRect.center = (x + (w / 2), y + (h / 2))
     gameDisplay.blit(textSurf, textRect)
 
+
+def mainClassic():
+
+    classic = True
+
+    xball, yball = 600, 500
+
+    while classic:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    xball -=20
+                elif event.key == pygame.K_RIGHT:
+                    xball +=20
+                elif event.key == pygame.K_UP:
+                    yball -= 20
+                elif event.key ==pygame.K_DOWN:
+                    yball+=20
+
+
+        gameDisplay.fill(PT)
+        gameDisplay.blit(table, (100, 200))
+        gameDisplay.blit(whiteball, (xball,yball))
+
+
+
+        pygame.display.update()
+
+
+def mainCircle():
+    pass
+def mainTriangle():
+    pass
+
+
+
 def intro():
     intro = True
 
@@ -52,7 +93,7 @@ def intro():
                 pygame.quit()
                 quit()
 
-        gameDisplay.fill((255,255,255))
+        gameDisplay.fill(white)
         gameDisplay.blit(poolImg, (500, 200))
 
 

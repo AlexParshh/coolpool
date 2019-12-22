@@ -1,3 +1,0 @@
-
-def mainTriangle():
-    print("TRIANGLE")

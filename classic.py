@@ -1,4 +1,0 @@
-
-
-def mainClassic():
-    print("CLASSIC")

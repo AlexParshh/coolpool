@@ -1,3 +1,0 @@
-
-def mainCircle():
-    print("CIRCLE")
