@@ -1,0 +1,3 @@
+
+def mainTriangle():
+    print("TRIANGLE")
