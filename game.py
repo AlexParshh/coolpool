@@ -1,5 +1,6 @@
 import pygame as pg
 import math
+import time
 
 pg.init()
 
@@ -16,6 +17,30 @@ running = True
 
 def dist(x1, y1, x2, y2):
     return math.sqrt((x1-x2)**2 + (y1-y2)**2)
+
+def text_objects(text,font):
+    textSurface = font.render(text,True,(0,0,0))
+    return textSurface, textSurface.get_rect()
+
+
+def scoreboard(stripesIN, solidsIN,player):
+    smallText = pg.font.Font("freesansbold.ttf", 20)
+
+    word = f"Stripes: {stripesIN} Solids: {solidsIN}"
+    textSurf, textRect = text_objects(word, smallText)
+    textRect.center = ((w-350), (h-20))
+    screen.blit(textSurf, textRect)
+
+    word = f"Turn: {player}"
+    textSurf, textRect = text_objects(word, smallText)
+    textRect.center = ((w - 1150), (h - 20))
+    screen.blit(textSurf, textRect)
+
+
+def gameOver(winner):
+        pass
+
+
 
 class Hole:
     def __init__(self, x=0, y=0):
@@ -34,6 +59,8 @@ class Hole:
         pg.draw.circle(screen, (0, 0, 0), (int(self.x), int(self.y)), int(self.r), 0)
         if len(self.caught):
             self.caught[-1].display() #displays most recent ball on hole
+
+
 
 class Ball:
     def __init__(self, x, y, index):
@@ -130,6 +157,7 @@ class WhiteBall(Ball): #inheritence from ball adding extra methods
         pg.draw.line(screen, (255, 0, 0), (self.x, self.y), (30* pixel_per_cm*math.cos(self.angle) + self.x, 30* pixel_per_cm*math.sin(self.angle)+self.y), 2) #make sit so that the length of the line stays the same not go all teh way to the mouse
         pg.draw.circle(screen, (255, 255, 255), (int(self.x), int(self.y)), int(self.r), 0) #drawing the ball
 
+
 white_ball = WhiteBall(w/2, h/2+50, 0)
 balls = [white_ball, Ball(w/2, h/2, 1), Ball(w/2 + 5, h/2 - 5, 2), Ball(w/2 - 10, h/2 - 10, 3), Ball(w/2, h/2 - 20, 4),
          Ball(w/2 - 20, h/2 - 20, 5), Ball(w/2 + 20, h/2 - 20, 6), Ball(w/2 + 10, h/2 - 30, 7),
@@ -139,11 +167,15 @@ balls = [white_ball, Ball(w/2, h/2, 1), Ball(w/2 + 5, h/2 - 5, 2), Ball(w/2 - 10
 holes = [Hole(w - Hole().r, h-Hole().r), Hole(Hole().r, Hole().r), Hole(Hole().r, h-Hole().r), Hole(w - Hole().r, Hole().r), Hole(w/2, Hole().r), Hole(w/2, h-Hole().r)]
 #center of holes is the radius away from the edge
 
+turn = "p1"
+
 while running:
+
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
             running = False
+            quit()
         if event.type == pg.MOUSEBUTTONDOWN:
             if event.button == 1: #if you press left mouse button
                 in_hole = False
@@ -156,6 +188,11 @@ while running:
                 print(in_hole)
                 if white_ball.vel == 0 and in_hole == False:
                     white_ball.hit(pg.mouse.get_pos()) #if you click on the screen you shoul donly be able to hit the white ball if its not in a hole
+
+                    if turn == "p1":
+                        turn = "p2"
+                    else:
+                        turn = "p1"
 
     screen.fill((0, 50, 0))
 
@@ -174,6 +211,41 @@ while running:
         if white_ball.vel == 0: #you cant point while the ball is moving
             white_ball.point(pg.mouse.get_pos())
 
+    def checker(holesF):
+
+        solids = 0
+        stripes = 0
+
+        for j in holesF:
+            for k in j.caught:
+                if k.index in [1,2,3,4,5,6,7]:
+                    solids +=1
+                if k.index in [9,10,11,12,13,14,15]:
+                    stripes += 1
+        return (stripes, solids)
+
+
+    def blackChecker(holesF):
+        for j in holesF:
+            for k in j.caught:
+                if k.index in [8]:
+                    return True
+        return False
+
+
+    if blackChecker(holes):
+        if turn == "p1":
+            winner = "p2"
+        else:
+            winner = "p1"
+
+
+    scoreboard(checker(holes)[0],checker(holes)[1], turn)
+
+    if checker(holes)[0] == 7:
+        time.sleep(3)
+    elif checker(holes)[1] == 7:
+        time.sleep(3)
 
 
     #sets specific time interval for loop

@@ -19,6 +19,13 @@ red = (255,0,0)
 lightRed = (220,20,60)
 white = (255,255,255)
 PT = (175,238,238)
+
+def message_display(text):
+    largeText = pygame.font.Font("freesansbold.ttf",115)
+    textSurf, textRect = text_objects(text,largeText)
+    textRect.center = ()
+
+
 def text_objects(text,font):
     textSurface = font.render(text,True,(0,0,0))
     return textSurface, textSurface.get_rect()
@@ -54,7 +61,7 @@ def mainMultiplayer():
                 pygame.quit()
                 quit()
 
-            import game.py
+            import game
 
 
         pygame.display.update()
