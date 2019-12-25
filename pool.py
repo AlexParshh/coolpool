@@ -1,6 +1,7 @@
 import pygame
 
 
+
 pygame.init()
 
 gameDisplay = pygame.display.set_mode((1200,800))
@@ -8,8 +9,7 @@ pygame.display.set_caption("cool pool")
 
 
 poolImg = pygame.image.load("coolpool.png")
-table = pygame.image.load("table.png")
-whiteball = pygame.image.load("whiteball.png")
+
 
 green = (0,128,0)
 lime = (0,255,0)
@@ -44,11 +44,9 @@ def button(msg,x,y,w,h,activeColor,inactiveColor,action=None):
     gameDisplay.blit(textSurf, textRect)
 
 
-def mainClassic():
+def mainMultiplayer():
 
     classic = True
-
-    xball, yball = 600, 500
 
     while classic:
         for event in pygame.event.get():
@@ -56,31 +54,14 @@ def mainClassic():
                 pygame.quit()
                 quit()
 
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    xball -=20
-                elif event.key == pygame.K_RIGHT:
-                    xball +=20
-                elif event.key == pygame.K_UP:
-                    yball -= 20
-                elif event.key ==pygame.K_DOWN:
-                    yball+=20
-
-
-        gameDisplay.fill(PT)
-        gameDisplay.blit(table, (100, 200))
-        gameDisplay.blit(whiteball, (xball,yball))
-
+            import game.py
 
 
         pygame.display.update()
 
 
-def mainCircle():
+def mainSingleplayer():
     pass
-def mainTriangle():
-    pass
-
 
 
 def intro():
@@ -97,9 +78,9 @@ def intro():
         gameDisplay.blit(poolImg, (500, 200))
 
 
-        button("Classic",150,450,200,100,lime,green,mainClassic)
-        button("Circle",500,450,200,100,cyan,blue,mainCircle)
-        button("Triangle",850,450,200,100,lightRed,red,mainTriangle)
+        button("Multiplayer",150,450,200,100,lime,green,mainMultiplayer)
+
+        button("Singleplayer",850,450,200,100,lightRed,red,mainSingleplayer)
 
 
         pygame.display.update()
