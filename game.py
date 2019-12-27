@@ -125,10 +125,10 @@ class Ball:
 
         ball.angle = self.angle + math.pi #adding 180 degrees to second balls angle cuz theyre going in opposite direction
 
-        self.x -= (ball.x - self.x) / 2
-        self.y -= (ball.y - self.y) / 2 #moves the balls away from eachother so program doesnt recognize them as having collided for a second time so it doesnt recalculate again just because the balls are inside eachother, makes them not touch
-        ball.x += (ball.x - self.x) / 2 #to avoid collisions that arent there, because the balls would still be inside eachother because in collisions they go inside eachother
-        ball.y += (ball.y - self.y) / 2
+        self.x -= (ball.x - self.x) / 4
+        self.y -= (ball.y - self.y) / 4 #moves the balls away from eachother so program doesnt recognize them as having collided for a second time so it doesnt recalculate again just because the balls are inside eachother, makes them not touch
+        ball.x += (ball.x - self.x) / 4 #to avoid collisions that arent there, because the balls would still be inside eachother because in collisions they go inside eachother
+        ball.y += (ball.y - self.y) / 4
     def display(self): #drawing the balls on the screen
         if self.index <= 8: #drawing fully colored balls
             pg.draw.circle(screen, self.color, (int(self.x), int(self.y)), int(self.r), 0)
@@ -145,8 +145,9 @@ class WhiteBall(Ball): #inheritence from ball adding extra methods
             self.angle = math.atan(slope)
             if run < 0:
                 self.angle += math.pi
-        except: #sets angle to 90 and multiply depending on direction of rise, zero is asymptote so if run is zero it means its either straight up or straight down
-            self.angle = math.pi/2 * abs(rise)/rise
+        except:
+            if rise != 0:#sets angle to 90 and multiply depending on direction of rise, zero is asymptote so if run is zero it means its either straight up or straight down
+                self.angle = math.pi/2 * abs(rise)/rise
     def place(self, mousepos): #When you get whiteball in hole it sets the balls position to the mouse position
         self.x = mousepos[0]
         self.y = mousepos[1]
@@ -184,6 +185,7 @@ while running:
                         in_hole = True
                         balls.append(white_ball) #reappend to balls list and remove from hole
                         hole.caught.remove(white_ball)
+                        white_ball.vel = 0
                         break
                 print(in_hole)
                 if white_ball.vel == 0 and in_hole == False:
