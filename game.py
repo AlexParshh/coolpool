@@ -53,6 +53,8 @@ class Hole:
             if dist(self.x, self.y, ball.x, ball.y) < 5/3 * self.r:
                 ball.x = self.x #centers the ball inside the hole
                 ball.y = self.y
+                pg.mixer.music.load('Ta Da.mp3')
+                pg.mixer.music.play(0)
                 self.caught.append(ball)
                 balls.remove(ball) #removes from ball list so it doesnt check for missing ball during collisions
     def display(self):
@@ -107,6 +109,8 @@ class Ball:
             self.y = self.r
             self.angle = 2 * math.pi - self.angle
     def collide(self, ball): #balls are bouncing back along the line connecting their origins (perpendicular bisector to tangent)
+        pg.mixer.music.load('billiards+2.mp3')
+        pg.mixer.music.play(1)
         rise = self.y - ball.y#finding angle connecting two balls
         run = self.x - ball.x
         try:

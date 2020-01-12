@@ -54,6 +54,8 @@ class Hole:
             if dist(self.x, self.y, ball.x, ball.y) < 5/3 * self.r:
                 ball.x = self.x #centers the ball inside the hole
                 ball.y = self.y
+                pg.mixer.music.load('Ta Da.mp3')
+                pg.mixer.music.play(0)
                 self.caught.append(ball)
                 balls.remove(ball) #removes from ball list so it doesnt check for missing ball during collisions
     def display(self):
@@ -95,6 +97,7 @@ class Ball:
                 if dist(self.x, self.y, ball.x, ball.y) < self.r * 2: #if theyre touching, distance between them is the sum of both their radii
                     self.collide(ball) #collinging if distance is less than contact point
     def wall_bounce(self):
+
         if self.x + self.r > w:
             self.x = w - self.r
             self.angle = math.pi - self.angle
@@ -108,6 +111,8 @@ class Ball:
             self.y = self.r
             self.angle = 2 * math.pi - self.angle
     def collide(self, ball): #balls are bouncing back along the line connecting their origins (perpendicular bisector to tangent)
+        pg.mixer.music.load('billiards+2.mp3')
+        pg.mixer.music.play(1)
         rise = self.y - ball.y#finding angle connecting two balls
         run = self.x - ball.x
         try:
@@ -226,8 +231,10 @@ while running:
             for k in j.caught:
                 if k.index in [1,2,3,4,5,6,7]:
                     solids +=1
+
                 if k.index in [9,10,11,12,13,14,15]:
                     stripes += 1
+
         return (stripes, solids)
 
 
@@ -240,10 +247,11 @@ while running:
 
 
     if blackChecker(holes):
-        if turn == "p1":
-            winner = "p2"
-        else:
-            winner = "p1"
+        smallText = pg.font.Font("freesansbold.ttf", 20)
+        word = f"You won"
+        textSurf, textRect = text_objects(word, smallText)
+        textRect.center = ((w - 350), (h - 20))
+        screen.blit(textSurf, textRect)
 
 
     scoreboard(checker(holes)[0],checker(holes)[1], turn)

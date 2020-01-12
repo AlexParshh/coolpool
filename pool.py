@@ -68,7 +68,7 @@ def mainMultiplayer():
 
 
 def mainSingleplayer():
-    pass
+    import singleplayer
 
 
 def intro():
