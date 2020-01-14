@@ -10,7 +10,10 @@ pygame.display.set_caption("cool pool")
 
 poolImg = pygame.image.load("coolpool.png")
 
-
+darkorange = (255,128,0)
+lightorange = (255,204,153)
+darkblue = (0,204,204)
+lightblue = (51,255,255)
 green = (0,128,0)
 lime = (0,255,0)
 blue = (0,128,128)
@@ -20,10 +23,6 @@ lightRed = (220,20,60)
 white = (255,255,255)
 PT = (175,238,238)
 
-def message_display(text):
-    largeText = pygame.font.Font("freesansbold.ttf",115)
-    textSurf, textRect = text_objects(text,largeText)
-    textRect.center = ()
 
 
 def text_objects(text,font):
@@ -70,6 +69,8 @@ def mainMultiplayer():
 def mainSingleplayer():
     import singleplayer
 
+background = pygame.image.load('start-bg.jpg')
+logo = pygame.image.load('coolpool-logo.png')
 
 def intro():
     intro = True
@@ -81,13 +82,14 @@ def intro():
                 pygame.quit()
                 quit()
 
-        gameDisplay.fill(white)
-        gameDisplay.blit(poolImg, (500, 200))
+        #gameDisplay.fill(white)
+        gameDisplay.blit(background, (0,0))
+        gameDisplay.blit(logo, (216, 102))
 
 
-        button("Multiplayer",150,450,200,100,lime,green,mainMultiplayer)
+        button("Multiplayer",350,450,200,100,lime,green,mainMultiplayer)
 
-        button("Singleplayer",850,450,200,100,lightRed,red,mainSingleplayer)
+        button("Singleplayer",650,450,200,100,lightorange,darkorange,mainSingleplayer)
 
 
         pygame.display.update()
