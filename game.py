@@ -60,8 +60,6 @@ def jeux():
         screen.blit(textSurf, textRect)
 
 
-    def gameOver(winner):
-            pass
 
 
 

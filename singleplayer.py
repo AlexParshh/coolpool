@@ -63,8 +63,6 @@ def jeuxs():
         screen.blit(textSurf, textRect)
 
 
-    def gameOver(winner):
-            pass
 
 
 
@@ -286,7 +284,7 @@ def jeuxs():
 
             for j in holesF:
                 for k in j.caught:
-                    if k.index in [1,2,3,4,5,6,7]:
+                    if k.index in [1,2,3,4,5,6,7,8]:
                         solids +=1
 
                     if k.index in [9,10,11,12,13,14,15]:
