@@ -136,11 +136,11 @@ def jeux():
             run = self.x - ball.x
             try:
                 slope = rise/run
-                self.angle = math.atan(slope) #angle is the inverse tan of the slope artan only gives angles in quadrant 1 and 4 (CAST rule0)
+                self.angle = math.atan(slope) #angle is the inverse tan of the slope artan only gives angles in quadrant 1 and 3 (CAST rule) ARCTAN DOESNT GIVE NEGATIVE NUMBERS 1 and 4 have positive runs
                 if run < 0: #since run has a small chance of being zero cant divide anything by zero, so if its zero, the angle will just be 90
-                    self.angle += math.pi #increasing the angle by 180 degrees if angle is in quadrant 2 or 3 where tan is negative
+                    self.angle += math.pi #increasing the angle by 180 degrees if angle is in quadrant 2 or 4 where tan is negative
             except:#except happens if run is zero flipping the direction
-                self.angle = math.pi/2 * abs(rise)/rise #use math.pi/2 cuz its in radians, if rise is negative multiply by -1, changing the direction of the ball
+                self.angle = math.pi/2 * abs(rise)/rise #use math.pi/2 cuz its in radians, if rise is negative multiply by -1, changing the direction of the ball setting the angle to 90 degrees
 
             vi = self.vel #initial velocity, since youre changing velocity but youre gonna need velocity before chaning
             self.vel = (self.Cr * (ball.vel - self.vel) + self.vel + ball.vel) / 2 #inelastic collision formulas modified for same mass
