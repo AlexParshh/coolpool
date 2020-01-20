@@ -9,4 +9,4 @@ Below are a few pictures of the game.
 
 ![alt text](https://raw.githubusercontent.com/AlexParshh/coolpool/master/startscreen.png)
 ![alt text](https://raw.githubusercontent.com/AlexParshh/coolpool/master/singleplayer.png)
-![alt text](https://raw.githubusercontent.com/AlexParshh/coolpool/master/startscreen.png)
+![alt text](https://raw.githubusercontent.com/AlexParshh/coolpool/master/multiplayer.png)
